@@ -60,7 +60,7 @@ struct SyncSheet: View {
             return
         }
 
-        syncState = .syncing("Syncing with AnkiWeb...")
+        syncState = .syncing("Syncing...")
 
         do {
             let summary = try await syncClient.sync()
@@ -134,7 +134,7 @@ struct SyncSheet: View {
                 Button {
                     Task { await fullSync(.download) }
                 } label: {
-                    Label("Download from AnkiWeb", systemImage: "arrow.down.circle")
+                    Label("Download from Server", systemImage: "arrow.down.circle")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.borderedProminent)
@@ -142,7 +142,7 @@ struct SyncSheet: View {
                 Button {
                     Task { await fullSync(.upload) }
                 } label: {
-                    Label("Upload to AnkiWeb", systemImage: "arrow.up.circle")
+                    Label("Upload to Server", systemImage: "arrow.up.circle")
                         .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.bordered)
