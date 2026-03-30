@@ -3,7 +3,10 @@ import AnkiSync
 
 struct ContentView: View {
     @State private var showSync = false
+    @State private var showImport = false
     @State private var refreshID = UUID()
+    @State private var importMessage: String?
+    @State private var showImportAlert = false
 
     private var isLocalMode: Bool {
         UserDefaults.standard.string(forKey: "syncMode") == "local"
@@ -59,6 +62,37 @@ struct ContentView: View {
             refreshID = UUID()
         } content: {
             SyncSheet(isPresented: $showSync)
+        }
+        .fileImporter(isPresented: $showImport, allowedContentTypes: [.data]) { result in
+            handleImport(result)
+        }
+        .alert("Import", isPresented: $showImportAlert) {
+            Button("OK") { }
+        } message: {
+            Text(importMessage ?? "")
+        }
+    }
+
+    private func handleImport(_ result: Result<URL, Error>) {
+        switch result {
+        case .success(let url):
+            let ext = url.pathExtension.lowercased()
+            guard ext == "apkg" || ext == "colpkg" else {
+                importMessage = "Unsupported file type. Please select an .apkg or .colpkg file."
+                showImportAlert = true
+                return
+            }
+            do {
+                let summary = try ImportHelper.importPackage(from: url)
+                importMessage = summary
+                refreshID = UUID()
+            } catch {
+                importMessage = "Import failed: \(error.localizedDescription)"
+            }
+            showImportAlert = true
+        case .failure(let error):
+            importMessage = "Could not select file: \(error.localizedDescription)"
+            showImportAlert = true
         }
     }
 }
